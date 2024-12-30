@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "960200636862",
+    "firebase_url": "https://projekuas2024paba17-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "projekuas2024paba17",
+    "storage_bucket": "projekuas2024paba17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960200636862:android:42b47b934331c3b41ea1ef",
+        "android_client_info": {
+          "package_name": "com.paba.notes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3A6OyO19VjrOBBycokWW6Sqx7uu3atO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_scan_qr"
+        android:icon="@drawable/ic_round_qr_code_scanner_24"
+        android:title="@string/action_search"
+        app:iconTint="?attr/colorOnPrimaryContainer"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_round_logout_24"
+        android:title="@string/action_logout"
+        app:iconTint="?attr/colorOnPrimaryContainer"
+        app:showAsAction="never" />
+</menu>
