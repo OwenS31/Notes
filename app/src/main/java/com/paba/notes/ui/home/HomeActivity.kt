@@ -28,43 +28,24 @@ import com.paba.notes.ui.login.LoginActivity
 import com.paba.notes.ui.note.create.CreateNoteActivity
 import com.paba.notes.ui.note.edit.EditNoteActivity
 
-/**
- * HomeActivity is responsible for displaying the home screen where users can view, search, and manage their notes.
- * It interacts with Firebase to fetch and display notes, and provides navigation to other activities for note creation, editing, and security password verification.
- */
+
 class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
-    /**
-     * View binding for the activity.
-     */
+
     private lateinit var binding: ActivityHomeBinding
 
-    /**
-     * Firebase Authentication instance.
-     */
+
     private lateinit var firebaseAuth: FirebaseAuth
 
-    /**
-     * Firebase Firestore instance.
-     */
+
     private lateinit var firebaseFirestore: FirebaseFirestore
 
-    /**
-     * Adapter for displaying the list of notes.
-     */
+
     private val noteListAdapter by lazy { NoteListAdapter() }
 
-    /**
-     * Adapter for displaying the search results.
-     */
     private val noteSearchAdapter by lazy { NoteListAdapter() }
 
-    /**
-     * Called when the activity is starting. This is where most initialization should go.
-     * It initializes view binding, Firebase instances, and sets up the window insets listener.
-     *
-     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
-     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -84,9 +65,7 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         observeData()
     }
 
-    /**
-     * Observes data changes in Firestore and updates the UI accordingly.
-     */
+
     private fun observeData() {
         // Show loading progress bar
         showLoading(true)
@@ -113,27 +92,19 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
             }
     }
 
-    /**
-     * Shows or hides the loading state.
-     *
-     * @param isShowLoading Boolean indicating whether to show the loading state.
-     */
+
     private fun showLoading(isShowLoading: Boolean) = binding.apply {
         progressBar.isVisible = isShowLoading
         rvNotes.isVisible = !isShowLoading
     }
 
-    /**
-     * Called when the activity is resumed. It re-observes data changes in Firestore.
-     */
+
     override fun onResume() {
         super.onResume()
         observeData()
     }
 
-    /**
-     * Initializes the view and sets up click listeners for the UI elements.
-     */
+
     private fun initView() = binding.apply {
         // Setup RecyclerView for displaying notes
         rvNotes.apply {
