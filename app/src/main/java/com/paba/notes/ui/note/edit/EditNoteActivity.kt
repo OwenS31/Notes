@@ -81,6 +81,8 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
                     // Set the title, content, and security password fields
                     binding.inputTitle.setText(note?.title)
                     binding.inputContent.setText(note?.content)
+                    binding.inputSecurityPassword.editText?.setText(note?.securityPassword.orEmpty())
+                    setSecurityPasswordEnabled(note?.securityPassword.isNullOrBlank().not())
                 } else {
                     // If the document does not exist, show an error message and finish the activity
                     showToast(getString(R.string.message_error_not_found, getString(R.string.note)))
@@ -103,6 +105,14 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         progressBar.isVisible = isShowLoading
         inputTitle.isEnabled = !isShowLoading
         inputContent.isEnabled = !isShowLoading
+        inputSecurityPassword.isEnabled = !isShowLoading
+    }
+
+    private fun setSecurityPasswordEnabled(isEnabled: Boolean) = binding.apply {
+        inputSecurityPassword.isVisible = isEnabled
+        toolbar.menu.findItem(R.id.lock).setIcon(
+            if (isEnabled) R.drawable.lock_open else R.drawable.baseline_lock_24
+        )
     }
 
     private fun initView() = binding.apply {
@@ -114,6 +124,12 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         // Handle the menu item click
         when (item?.itemId) {
+
+            R.id.lock -> {
+                // Toggle the security password input field
+                setSecurityPasswordEnabled(binding.inputSecurityPassword.isVisible.not())
+                return true
+            }
 
             R.id.action_save -> {
                 // Validate the input fields
@@ -198,6 +214,8 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         // Get the input values
         val title = inputTitle.text.toString().trim()
         val content = inputContent.text.toString()
+        val securityPasswordEnabled = inputSecurityPassword.isVisible
+        val securityPassword = inputSecurityPassword.editText?.text?.toString()?.trim()
         var isInputValid = true
 
         // Validate the input fields
@@ -215,12 +233,19 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
                 getString(R.string.error_empty_field, getString(R.string.hint_content))
             isInputValid = false
         }
+        if (securityPasswordEnabled && securityPassword?.isBlank() == true) {
+            // Show an error message if the security password is empty
+            inputSecurityPassword.error =
+                getString(R.string.error_empty_field, getString(R.string.hint_security_password))
+            isInputValid = false
+        }
 
 
         // Update the note if the input is valid
         if (isInputValid) updateNote(
             title,
             content,
+            if (securityPasswordEnabled) securityPassword else null
         ) else showLoading(
             false
         )
@@ -238,6 +263,7 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
                 mapOf(
                     "title" to title,
                     "content" to content,
+                    "securityPassword" to securityPassword,
                     "updatedAt" to Date(),
                     "token" to generateToken()
                 )
@@ -261,6 +287,7 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     private fun hideInputErrors() {
         binding.inputTitle.error = null
         binding.inputContent.error = null
+        binding.inputSecurityPassword.error = null
     }
 
     private fun showToast(message: String) =

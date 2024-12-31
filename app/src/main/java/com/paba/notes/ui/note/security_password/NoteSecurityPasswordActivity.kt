@@ -1,5 +1,6 @@
 package com.paba.notes.ui.note.security_password
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.paba.notes.R
 import com.paba.notes.databinding.ActivitySecurityPasswordBinding
+import com.paba.notes.helper.COLLECTION_NOTES
+import com.paba.notes.ui.note.edit.EditNoteActivity
 import com.paba.notes.ui.note.edit.EditNoteActivity.Companion.EXTRA_NOTE_ID
 
 class NoteSecurityPasswordActivity : AppCompatActivity() {
@@ -60,8 +63,7 @@ class NoteSecurityPasswordActivity : AppCompatActivity() {
                 getString(R.string.error_empty_field, getString(R.string.label_security_password))
             showLoading(false)
         } else {
-
-
+            validateSecurityPassword()
         }
     }
     private fun showLoading(isShowLoading: Boolean) = binding.apply {
@@ -77,6 +79,50 @@ class NoteSecurityPasswordActivity : AppCompatActivity() {
                 getString(R.string.action_login)
             }
         }
+    }
+
+    private fun validateSecurityPassword() {
+        // Get the security password from the input field
+        val securityPassword = binding.inputSecurityPassword.editText?.text.toString().trim()
+
+        // Get the security password from Firestore
+        firebaseFirestore.collection(
+            COLLECTION_NOTES
+        ).document(noteId).get()
+            .addOnSuccessListener { document ->
+                // Get the security password from Firestore
+                val securityPasswordDb = document["securityPassword"].toString()
+
+                // Check if the input security password matches the security password from Firestore
+                if (securityPassword == securityPasswordDb) {
+                    // Navigate to the EditNoteActivity if the security password is correct
+                    navigateToEditNoteActivity()
+                } else {
+                    // Show error if the security password is incorrect
+                    showLoading(false)
+                    binding.inputSecurityPassword.error =
+                        getString(
+                            R.string.error_invalid_field,
+                            getString(R.string.label_security_password)
+                        )
+                }
+            }
+            .addOnFailureListener {
+                // Show error if the security password is incorrect
+                showLoading(false)
+                binding.inputSecurityPassword.error =
+                    getString(
+                        R.string.error_invalid_field,
+                        getString(R.string.label_security_password)
+                    )
+            }
+    }
+
+    private fun navigateToEditNoteActivity() {
+        val intent = Intent(this, EditNoteActivity::class.java)
+        intent.putExtra(EXTRA_NOTE_ID, noteId)
+        startActivity(intent)
+        finish()
     }
 
     companion object {

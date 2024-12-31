@@ -11,6 +11,7 @@ data class Note(
     val id: String? = null,
     val title: String? = null,
     val content: String? = null,
+    val securityPassword: String? = null,
     val userIds: List<String>? = emptyList(),
     val token: String? = null,
     val createdAt: Date? = null,

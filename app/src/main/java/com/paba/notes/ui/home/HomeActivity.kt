@@ -27,6 +27,7 @@ import com.paba.notes.helper.COLLECTION_NOTES
 import com.paba.notes.ui.login.LoginActivity
 import com.paba.notes.ui.note.create.CreateNoteActivity
 import com.paba.notes.ui.note.edit.EditNoteActivity
+import com.paba.notes.ui.note.security_password.NoteSecurityPasswordActivity
 
 
 class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
@@ -145,6 +146,12 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     private fun navigateToEditNoteActivity(id: String) {
         val intent = Intent(this, EditNoteActivity::class.java)
         intent.putExtra(EditNoteActivity.EXTRA_NOTE_ID, id)
+        startActivity(intent)
+    }
+
+    private fun navigateToNoteSecurityPasswordActivity(id: String) {
+        val intent = Intent(this, NoteSecurityPasswordActivity::class.java)
+        intent.putExtra(NoteSecurityPasswordActivity.EXTRA_NOTE_ID, id)
         startActivity(intent)
     }
 
