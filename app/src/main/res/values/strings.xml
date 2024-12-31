@@ -47,4 +47,5 @@
     <string name="action_add_note">Tambah Catatan</string>
     <string name="message_import_note">Apakah Anda ingin menambahkan \"%1$s\" ke dalam catatan Anda?</string>
     <string name="message_loading_importing_note">Menambahkan catatan. Mohon tunggu...</string>
+    <string name="action_lock">Lock</string>
 </resources>
