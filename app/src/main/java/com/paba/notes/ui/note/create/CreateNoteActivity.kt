@@ -69,14 +69,9 @@ class CreateNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener 
         return false
     }
 
-//     Validates the input fields for the note.
-//     If the input is valid, it proceeds to store the note.
-
     private fun validateInput() = binding.apply {
         // Show loading state and hide input errors
         showLoading(true)
-        // Hide input errors
-        hideInputErrors()
 
         // Get the input values
         val title = inputTitle.text.toString().trim()
@@ -155,9 +150,4 @@ class CreateNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener 
         }
     }
 
-    // Hides any input errors displayed on the form.
-    private fun hideInputErrors() {
-        binding.inputTitle.error = null
-        binding.inputContent.error = null
-    }
 }
