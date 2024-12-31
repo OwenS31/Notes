@@ -41,9 +41,9 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     private lateinit var firebaseFirestore: FirebaseFirestore
 
 
-    private val noteListAdapter by lazy { NoteListAdapter() }
+    private val noteListAdapter = NoteListAdapter()
 
-    private val noteSearchAdapter by lazy { NoteListAdapter() }
+    private val noteSearchAdapter = NoteListAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,7 +109,7 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         // Setup RecyclerView for displaying notes
         rvNotes.apply {
             // Set the layout manager to StaggeredGridLayoutManager with 2 columns
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
             // Set the adapter to the noteListAdapter
             adapter = noteListAdapter
             // Set hasFixedSize to false to allow the RecyclerView to have a dynamic size
@@ -128,7 +128,7 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         // Setup RecyclerView for displaying search results
         searchResult.apply {
             // Set the layout manager to StaggeredGridLayoutManager with 2 columns
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
             // Set the adapter to the noteSearchAdapter
             adapter = noteSearchAdapter
             // Set hasFixedSize to false to allow the RecyclerView to have a dynamic size
