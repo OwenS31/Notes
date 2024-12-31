@@ -111,10 +111,14 @@ class HomeActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
             setHasFixedSize(false)
 
             noteListAdapter.onItemClick = { note ->
-
                 note.id?.let { noteId ->
-                    navigateToEditNoteActivity(noteId)
 
+                    if (note.securityPassword.isNullOrBlank()) {
+
+                        navigateToEditNoteActivity(noteId)
+                    } else {
+                        navigateToNoteSecurityPasswordActivity(noteId)
+                    }
                 }
             }
         }

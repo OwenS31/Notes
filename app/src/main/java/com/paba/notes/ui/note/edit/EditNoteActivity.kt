@@ -49,10 +49,10 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
         // Get the note ID from the intent
         intent.getStringExtra(EXTRA_NOTE_ID)?.apply {
-            // If the note ID is found, assign it to the noteId variable
+
             noteId = this
         } ?: run {
-            // If the note ID is not found, show an error message and finish the activity
+
             showToast(getString(R.string.message_error_not_found, getString(R.string.note)))
             finish()
         }
@@ -62,10 +62,10 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private fun loadData() {
-        // Show the loading indicator
+
         showLoading(true)
 
-        // Get the note data from Firestore
+
         firebaseFirestore.collection(COLLECTION_NOTES)
             .document(noteId)
             .get()
@@ -73,7 +73,6 @@ class EditNoteActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
                 // Hide the loading indicator
                 showLoading(false)
 
-                // If the document exists, assign it to the note variable
                 if (document.exists()) {
                     // Convert the document to a Note object
                     note = document.toObject(Note::class.java)

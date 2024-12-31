@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".ui.note.security_password.NoteSecurityPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.note.edit.EditNoteActivity"
             android:exported="false" />
         <activity
